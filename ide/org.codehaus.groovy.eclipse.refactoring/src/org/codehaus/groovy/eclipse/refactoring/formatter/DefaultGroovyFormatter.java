@@ -16,6 +16,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/*
+ *  This file has been modified by Nick Joodi on August, 2013.
+ */
+
 package org.codehaus.groovy.eclipse.refactoring.formatter;
 
 import groovyjarjarantlr.Token;
@@ -82,6 +87,8 @@ public class DefaultGroovyFormatter extends GroovyFormatter {
 
         if (selection.getLength() != 0) {
             try {
+
+                // I believe we have no offset
                 // expand selection to include start of line
                 int startLine = document.getLineOfOffset(selection.getOffset());
                 IRegion startLineInfo = document.getLineInformation(startLine);
@@ -89,6 +96,7 @@ public class DefaultGroovyFormatter extends GroovyFormatter {
                 // -1 because we don't want a selection at the start of a new
                 // line to cause that line to be formatted
                 int endLine = document.getLineOfOffset(selection.getOffset() + selection.getLength() - 1);
+
                 IRegion endLineInfo = document.getLineInformation(endLine);
 
                 formatOffset = startLineInfo.getOffset();
@@ -146,6 +154,7 @@ public class DefaultGroovyFormatter extends GroovyFormatter {
 //          }
         } catch (Exception e) {
             GroovyCore.logWarning("Cannot format, probably due to compilation errors.  Please fix and try again.", e);
+            return null;
         }
 
         if (formattedDocument.get().equals(document.get())) {
@@ -522,4 +531,5 @@ public class DefaultGroovyFormatter extends GroovyFormatter {
         int tabs = spaces / tabSize + 1;
         return tabs * tabSize;
     }
+
 }

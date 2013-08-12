@@ -16,6 +16,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/*
+ *  This file has been modified by Nick Joodi on August, 2013.
+ */
+
 package org.codehaus.groovy.eclipse.refactoring.core.utils;
 
 import java.util.ArrayList;
@@ -233,9 +238,9 @@ public class ASTTools {
 		return document;
 	}
 
-	public static ModuleNode getASTNodeFromSource(String source) {
+    public static ModuleNode getASTNodeFromSource(String source) {
 		GroovySnippetParser parser = new GroovySnippetParser();
-		ModuleNode node = parser.parse(source);
+        ModuleNode node = parser.parse(source);
 		return node;
 	}
 

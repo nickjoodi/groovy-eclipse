@@ -10,6 +10,10 @@
  *     Andrew Eisenberg - Additional work
  *     Kris De Volder - Grails 1.4/2.0 support
  *******************************************************************************/
+/*
+ *  This file has been modified by Nick Joodi on August, 2013.
+ */
+
 package org.codehaus.jdt.groovy.internal.compiler.ast;
 
 import groovy.lang.GroovyClassLoader;
@@ -449,7 +453,9 @@ public class GroovyParser {
 				}
 			}
 		}
-		gcuDeclaration.processToPhase(Phases.CONVERSION);
+		if (!gcuDeclaration.processToPhase(Phases.CONVERSION)) {
+			return null;
+		}
 
 		// Groovy moduleNode is null when there is a fatal error
 		// Otherwise, recover what we can

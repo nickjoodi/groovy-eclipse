@@ -9,6 +9,10 @@
  *     Andrew Eisenberg - initial API and implementation
  *******************************************************************************/
 
+/*
+ *  This file has been modified by Nick Joodi on August, 2013.
+ */
+
 package org.codehaus.groovy.eclipse.core.compiler;
 
 import groovyjarjarasm.asm.Opcodes;
@@ -101,10 +105,12 @@ public class GroovySnippetParser {
         ICompilationUnit unit = new MockCompilationUnit(source.toCharArray(), "Hello.groovy".toCharArray());
         CompilationResult compilationResult = new CompilationResult(unit, 0, 0, options.maxProblemsPerUnit);
 
-
         GroovyCompilationUnitDeclaration decl =
             (GroovyCompilationUnitDeclaration)
-            parser.dietParse(unit, compilationResult);
+ parser.dietParse(unit, compilationResult);
+        if (decl == null) {
+            return null;
+        }
         ModuleNode node = decl.getModuleNode();
 
         if (node == null) {
@@ -141,10 +147,9 @@ public class GroovySnippetParser {
         ICompilationUnit unit = new MockCompilationUnit(source.toCharArray(), "Hello.groovy".toCharArray());
         CompilationResult compilationResult = new CompilationResult(unit, 0, 0, options.maxProblemsPerUnit);
 
-
         GroovyCompilationUnitDeclaration decl =
             (GroovyCompilationUnitDeclaration)
-            parser.dietParse(unit, compilationResult);
+ parser.dietParse(unit, compilationResult);
         SourceUnit sourceUnit = decl.getSourceUnit();
         ParserPlugin parserPlugin = (ParserPlugin) ReflectionUtils.getPrivateField(SourceUnit.class, "parserPlugin", sourceUnit);
         if (parserPlugin instanceof AntlrParserPlugin) {
